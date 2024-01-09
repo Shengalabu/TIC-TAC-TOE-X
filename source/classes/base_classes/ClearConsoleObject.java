@@ -1,13 +1,9 @@
-package source;
+package source.classes.base_classes;
 
-import source.classes.base_classes.GameInstance;
-import source.classes.base_classes.math.Vectors;
-import source.classes.game.HealthComponent;
-import source.classes.game.TicTacToeX_DefaultMap;
+import java.util.TimerTask;
 
-public class Main {
-
-    public static void clearConsole() {
+public class ClearConsoleObject {
+    public void clearConsole() {
         try {
             // Clear console command for Windows, Unix, and Mac
             String os = System.getProperty("os.name").toLowerCase();
@@ -21,9 +17,5 @@ public class Main {
             // Handle exceptions
             e.printStackTrace();
         }
-    }
-    
-    public static void main(String[] args) {
-            TicTacToeX_DefaultMap RuntimeMap = new TicTacToeX_DefaultMap(new Vectors.Vector3D (0.0,0.0,0.0), null, null);
-    }
+    }    
 }

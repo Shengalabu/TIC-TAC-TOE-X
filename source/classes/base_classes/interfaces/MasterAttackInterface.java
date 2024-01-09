@@ -1,4 +1,4 @@
-package source.classes.interfaces;
+package source.classes.base_classes.interfaces;
 
 
 public interface MasterAttackInterface{

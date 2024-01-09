@@ -1,13 +1,19 @@
-package source.classes.player;
+package source.classes.game;
 
-import source.classes.interfaces.MasterAttackInterface;
+import source.classes.base_classes.Actor;
+import source.classes.base_classes.AObject;
 import source.classes.base_classes.Pawn;
-import source.classes.components.HealthComponent;
+import source.classes.base_classes.interfaces.MasterAttackInterface;
+import source.classes.base_classes.math.Vectors;
 
 public class PlayerPawn extends Pawn implements MasterAttackInterface{
+    //constructor
+    public PlayerPawn(Vectors.Vector3D actorVectors, Actor owner, AObject worldReference) {
+        super(actorVectors, owner, worldReference);
+    }
 
-    //Contruct components here----------------------------------------------------------------------
-        HealthComponent healthComponent = new HealthComponent();
+        //Contruct components here----------------------------------------------------------------------
+        HealthComponent healthComponent = new HealthComponent(new Vectors.Vector3D (0.0,0.0,0.0), this, this);
 
     //Implement interfaces here --------------------------------------------------------------------
         @Override
@@ -24,6 +30,7 @@ public class PlayerPawn extends Pawn implements MasterAttackInterface{
     //Begin play overide
         @Override
         public void beginPlay(){
+        System.out.println("Player Initiallized");
         }
 
 }

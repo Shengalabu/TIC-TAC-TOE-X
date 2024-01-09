@@ -1,6 +1,8 @@
-package source.classes.base_classes;
+package source.classes.base_classes.math;
 
-public class Vectors extends Object {
+import source.classes.base_classes.AObject;
+
+public class Vectors extends AObject {
     public static class Vector2D {
         private double x;
         private double y;
