@@ -26,8 +26,7 @@ public class Actor extends Object {
     
     public void beginPlay(){
     }
-
-
+  
     //Test class for spawnActorFromClass
     public static class UserClass {
         private Vectors.Vector3D vector;
