@@ -1,5 +1,6 @@
 package source.classes.base_classes;
-import source.classes.math.Vectors;
+
+import source.classes.base_classes.math.Vectors;
 
 //Ignore the yellow squigly lines
 //An actor is anything that you can spawn in the world

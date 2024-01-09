@@ -1,6 +1,4 @@
-package source.classes.math;
-
-import source.classes.base_classes.Object;
+package source.classes.base_classes;
 
 public class Vectors extends Object {
     public static class Vector2D {
