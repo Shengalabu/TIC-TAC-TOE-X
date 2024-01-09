@@ -1,12 +1,10 @@
 package source;
 
-import source.classes.Player;
+import source.classes.player.PlayerPawn;
 
-public class GameInstance{
+public class GameInstance extends Object{
     
     public void Run(){
-        Player playerInst = new Player();
-        
-        System.out.println(playerInst.getHealth());
+        PlayerPawn playerInst = new PlayerPawn();
     }   
 }
