@@ -1,5 +1,5 @@
-# DesitionBasedConsoleGame
-DesitionBasedConsoleGame
+# TIC-TAC-TOE-X
+TIC-TAC-TOE-X
 
 Clone the program and make commits.
 
