@@ -148,7 +148,7 @@ public class TicTacToeX_DefaultMap extends Map{
         }
 
         public void setBoardValue(int index, boolean isX){
-            if(this.board[index] != ' '){
+            if(this.board[index] == ' '){
                 this.board[index]= setBoardValueBasedOnBool(isX);
             }
             if (checkIfSomeoneHasWonInBoardCombat()){
