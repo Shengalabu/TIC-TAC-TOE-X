@@ -21,8 +21,7 @@ public class TicTacToeX_DefaultMap extends Map{
     PlayerPawn playerO;
     int ticks = 0;
     Timer timer;
- 
-
+    char[] board;
 
     public TicTacToeX_DefaultMap(Vectors.Vector3D actorVectors, Actor owner, AObject worldReference) {
         super(actorVectors, owner, worldReference);
@@ -68,11 +67,12 @@ public class TicTacToeX_DefaultMap extends Map{
             myScanner.close();
         }
 
-        public static void createDisplay(){
-            System.out.println("|-----------------------------------------------------------------------------------------------------------------------|\n"+
-                                "\n"+
-                                "\n"+
-                                "\n"+
+        public void createDisplay(){
+            System.out.println("|----------------------------------------------------- OPPONENT ----------------------------------------------------|\n"+
+                                "\n");
+                                System.out.printf  ("%-26s%-26s%-26s%-26s%-26s\n", "Cull:" + "15", "Fireball:" + "12", "Cosmic_Rupture:" + "10","Parry:" + "5", "Health: " + "100"); 
+
+            System.out.println ("\n"+
                                 "\n"+
                                 "\n"+
                                 "\n"+
@@ -80,20 +80,22 @@ public class TicTacToeX_DefaultMap extends Map{
                                 "\n"+
                                 "                                                      1   2   3  \n"+
                                 "                                                    |-----------|\n"+
-                                "                                                 1  | X | O | X |\n"+
-                                "                                                 2  | X | O | X |\n"+
-                                "                                                 3  | X | O | X |\n"+
+                                "                                                 1  | "+ this.board[0] +" | "+ this.board[1] +" | "+ this.board[2] +" |\n"+
+                                "                                                 2  | "+ this.board[3] +" | "+ this.board[4] +" | "+ this.board[5] +" |\n"+
+                                "                                                 3  | "+ this.board[6] +" | "+ this.board[7] +" | "+ this.board[8] +" |\n"+
                                 "                                                    |-----------|\n"+
                                 "\n"+
                                 "\n"+
                                 "\n"+
                                 "\n"+
-                                "\n"+
-                                "\n"+
-                                "\n"+
-                                "\n"+
-                               "|-----------------------------------------------------------------------------------------------------------------------|\n"
-                            );
+                                "\n");
+     System.out.printf  ("%-26s%-26s%-26s%-26s%-26s\n", "Cull:" + "15", "Fireball:" + "12", "Cosmic_Rupture:" + "10","Parry:" + "5", "Health: " + "100"); 
+             System.out.println("\n"+
+                                "|------------------------------------------------------- YOU -------------------------------------------------------|\n");
+            System.out.println("Enter input: ");
+
+            
+                            
         }
 
         public  PlayerPawn getActivePlayer(){
@@ -105,9 +107,57 @@ public class TicTacToeX_DefaultMap extends Map{
                     TicTacToeXPlayerController tttxPlayerController = (TicTacToeXPlayerController) getActivePlayer().owner;;
                     tttxPlayerController.takeUserInput();
                 }
-        }   
+        }
+        
+        //For when the player is an X or an O (True on X)
+        public char setBoardValueBasedOnBool(Boolean bool){
+            if (bool) {
+                return 'X';
+            }
+            return 'O';
+        }
+     
+        public boolean checkIfThreeIndicesAreTheSameChar(int n1, int n2, int n3){
+            if ((this.board[n1] == this.board[n2]) && (this.board[n2] == this.board[n3]) && (this.board[n1] != ' ')) {
+                return true;
+            }
+            return false;
+        }
 
-        public  void refreshDisplay(){
+        public boolean checkIfSomeoneHasWonInBoardCombat(){
+            if(
+                checkIfThreeIndicesAreTheSameChar(0,1,2)
+                ||
+                checkIfThreeIndicesAreTheSameChar(3,4,5)
+                ||
+                checkIfThreeIndicesAreTheSameChar(6,7,8)
+                ||
+                checkIfThreeIndicesAreTheSameChar(0,3,6)
+                ||
+                checkIfThreeIndicesAreTheSameChar(1,4,7)
+                ||
+                checkIfThreeIndicesAreTheSameChar(6,7,8)
+                ||
+                checkIfThreeIndicesAreTheSameChar(0,4,8)
+                ||
+                checkIfThreeIndicesAreTheSameChar(6,4,2)
+            ){
+                return true;
+            }
+            return false;
+        }
+
+        public void setBoardValue(int index, boolean isX){
+            if(this.board[index] == ' '){
+                this.board[index]= setBoardValueBasedOnBool(isX);
+            }
+            if (checkIfSomeoneHasWonInBoardCombat()){
+                stopTick();
+            }
+            refreshDisplay();
+        }
+
+        public void refreshDisplay(){
             ClearConsoleObject.clearConsole();
             createDisplay();
         }
@@ -122,7 +172,11 @@ public class TicTacToeX_DefaultMap extends Map{
         }
         
         public void stopTick(){
-            timer.cancel();
+            
+            
+            this.timer.cancel();
+            this.timer.purge();
+            ClearConsoleObject.clearConsole();
         }
 
     //Overide Begin Play --------------------------------------------------------------
@@ -130,7 +184,8 @@ public class TicTacToeX_DefaultMap extends Map{
     public void beginPlay() {
         super.beginPlay();
         AObject GameInstance = new TicTacToeXGameInstance(new Vectors.Vector3D (0.0,0.0,0.0), this, this);
-        tick(timer = new Timer());
+        board = new char[]{' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
+        tick(this.timer = new Timer());
         allowActivePlayerToMakeMove();
     }
 }

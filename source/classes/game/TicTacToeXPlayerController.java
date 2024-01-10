@@ -8,40 +8,79 @@ import source.classes.base_classes.PlayerController;
 import source.classes.base_classes.math.Vectors;
 
 public class TicTacToeXPlayerController extends PlayerController{
+    
+    TicTacToeX_DefaultMap ticTacToeX_DefaultMap;
+    int boardIndex = 0;
+    int abilityUseIndex = 0;
+
     //constructor
     public TicTacToeXPlayerController(Vectors.Vector3D actorVectors, Actor owner, source.classes.base_classes.AObject worldReference) {
         super(actorVectors, owner, worldReference);
     }
+
+
+
+
     //Fucntions   
+        //takes input from the player 
         public void takeUserInput(){
-            System.out.println("Enter input: ");
+            boolean placedOnBoardNotAbility = true;
+
             Scanner myScanner = new Scanner(System.in);
                 while (myScanner.hasNextLine()) {
                     String userInput = myScanner.nextLine().toLowerCase();
                     switch (userInput) {
-                        case "11":
-
-                            break;
+                        case "11": placeCharOnBoard(0); break;   
+                        case "12": placeCharOnBoard(3); break; 
+                        case "13": placeCharOnBoard(6); break; 
+                        case "21": placeCharOnBoard(1); break; 
+                        case "22": placeCharOnBoard(4); break; 
+                        case "23": placeCharOnBoard(7); break; 
+                        case "31": placeCharOnBoard(2); break; 
+                        case "32": placeCharOnBoard(5); break; 
+                        case "33": placeCharOnBoard(8); break; 
+                        case "Q": useAbility(1); break; 
+                        case "W": useAbility(2); break; 
+                        case "E": useAbility(3); break; 
+                        case "R": useAbility(4); break; 
                         case "x":
-                            if (worldReference instanceof TicTacToeX_DefaultMap){
-                                TicTacToeX_DefaultMap tttxDefaultMap = (TicTacToeX_DefaultMap) worldReference;
-                                tttxDefaultMap.stopTick();
-                            }
-                            AObject titleScreen = new TicTacToeX_TitleScreen(new Vectors.Vector3D(0.0, 0.0, 0.0), null, null);
+                            this.ticTacToeX_DefaultMap.stopTick();
+                            new TicTacToeX_TitleScreen(new Vectors.Vector3D(0.0, 0.0, 0.0), null, null);
                             break;
                         default:
                         System.out.println("------------------ INVALID INPUT ------------------");
                         break;
                     }
-                
-                }
+                } 
         }
         
+        public void setBoardValue(){
+            ticTacToeX_DefaultMap.setBoardValue(this.boardIndex, true);
+        }
 
+        public TicTacToeX_DefaultMap setDefaultMapRef(){
+            if (worldReference instanceof TicTacToeX_DefaultMap){
+                this.ticTacToeX_DefaultMap = (TicTacToeX_DefaultMap) worldReference;
+                return ticTacToeX_DefaultMap;
+            }
+            return ticTacToeX_DefaultMap;
 
+        }
+
+        public void placeCharOnBoard(int index){
+            this.boardIndex = index;
+            setBoardValue();
+        }
+
+        public void useAbility(int index){
+            this.abilityUseIndex = index;
+            
+        }
     @Override
     public void beginPlay() {
         super.beginPlay();
+        setDefaultMapRef();
         AObject playerRef = new PlayerPawn(new Vectors.Vector3D (1000.0,0.0,0.0), this, worldReference);
+        
     }
 }

@@ -9,6 +9,6 @@ public class Main extends AObject {
 
 
     public static void main(String[] args) {
-            AObject RuntimeMap = new TicTacToeX_TitleScreen(new Vectors.Vector3D (0.0,0.0,0.0), null, null);
+            new TicTacToeX_TitleScreen(new Vectors.Vector3D (0.0,0.0,0.0), null, null);
     }
 }

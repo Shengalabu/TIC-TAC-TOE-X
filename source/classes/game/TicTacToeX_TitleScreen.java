@@ -32,6 +32,7 @@ public class TicTacToeX_TitleScreen extends Map{
             switch (userInput) {
                 case "play":
                     AObject defaultMapInstance = new TicTacToeX_DefaultMap(new Vectors.Vector3D(0.0, 0.0, 0.0), this, null);
+                    myScanner.close();
                     break;
                 case "refresh rate":
                     System.out.println("You Got Bamboozled");
