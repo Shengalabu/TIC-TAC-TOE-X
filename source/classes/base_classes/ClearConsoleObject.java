@@ -1,9 +1,7 @@
 package source.classes.base_classes;
 
-import java.util.TimerTask;
-
-public class ClearConsoleObject {
-    public void clearConsole() {
+public class ClearConsoleObject extends AObject{
+    public static void clearConsole() {
         try {
             // Clear console command for Windows, Unix, and Mac
             String os = System.getProperty("os.name").toLowerCase();
