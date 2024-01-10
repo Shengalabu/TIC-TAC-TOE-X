@@ -16,6 +16,6 @@ public class TicTacToeXAIController extends TicTacToeXPlayerController{
     @Override
     public void beginPlay() {
         super.beginPlay();
-        AObject playerRef = new PlayerPawn(new Vectors.Vector3D (-1000.0,0.0,0.0), this, worldReference);
+        //AObject playerRef = new PlayerPawn(new Vectors.Vector3D (-1000.0,0.0,0.0), this, worldReference);
     }
 }

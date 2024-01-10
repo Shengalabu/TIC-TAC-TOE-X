@@ -14,23 +14,29 @@ public class TicTacToeXPlayerController extends PlayerController{
     }
     //Fucntions   
         public void takeUserInput(){
+            System.out.println("Enter input: ");
             Scanner myScanner = new Scanner(System.in);
-                if (myScanner.hasNextLine()){
+                while (myScanner.hasNextLine()) {
                     String userInput = myScanner.nextLine().toLowerCase();
                     switch (userInput) {
                         case "11":
 
                             break;
                         case "x":
+                            if (worldReference instanceof TicTacToeX_DefaultMap){
+                                TicTacToeX_DefaultMap tttxDefaultMap = (TicTacToeX_DefaultMap) worldReference;
+                                tttxDefaultMap.stopTick();
+                            }
                             AObject titleScreen = new TicTacToeX_TitleScreen(new Vectors.Vector3D(0.0, 0.0, 0.0), null, null);
                             break;
                         default:
                         System.out.println("------------------ INVALID INPUT ------------------");
-                        this.delayTime(1000);
                         break;
                     }
+                
                 }
         }
+        
 
 
     @Override

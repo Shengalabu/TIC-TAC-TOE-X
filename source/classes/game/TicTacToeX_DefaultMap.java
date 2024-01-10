@@ -9,6 +9,8 @@ import source.classes.base_classes.ClearConsoleObject;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.sound.midi.Track;
+
 import java.util.Scanner;
 
 
@@ -18,11 +20,12 @@ public class TicTacToeX_DefaultMap extends Map{
     PlayerPawn playerX;
     PlayerPawn playerO;
     int ticks = 0;
+    Timer timer;
+ 
 
 
     public TicTacToeX_DefaultMap(Vectors.Vector3D actorVectors, Actor owner, AObject worldReference) {
         super(actorVectors, owner, worldReference);
-
     }
 
     //functions --------------------------------------------------------------
@@ -65,7 +68,7 @@ public class TicTacToeX_DefaultMap extends Map{
             myScanner.close();
         }
 
-        public void createDisplay(){
+        public static void createDisplay(){
             System.out.println("|-----------------------------------------------------------------------------------------------------------------------|\n"+
                                 "\n"+
                                 "\n"+
@@ -89,39 +92,46 @@ public class TicTacToeX_DefaultMap extends Map{
                                 "\n"+
                                 "\n"+
                                 "\n"+
-                               "|-----------------------------------------------------------------------------------------------------------------------|");
-
+                               "|-----------------------------------------------------------------------------------------------------------------------|\n"
+                            );
         }
 
-        public PlayerPawn getActivePlayerIndex(){
+        public  PlayerPawn getActivePlayer(){
             return playerX;
         }
+        
+        public  void allowActivePlayerToMakeMove(){
+            if (getActivePlayer().owner instanceof TicTacToeXPlayerController){
+                    TicTacToeXPlayerController tttxPlayerController = (TicTacToeXPlayerController) getActivePlayer().owner;;
+                    tttxPlayerController.takeUserInput();
+                }
+        }   
 
-        public void refreshDisplay(){
+        public  void refreshDisplay(){
             ClearConsoleObject.clearConsole();
             createDisplay();
-             if (playerX.owner instanceof TicTacToeXPlayerController){
-                TicTacToeXPlayerController tttxPlayerController = (TicTacToeXPlayerController) playerX.owner;
-                tttxPlayerController.takeUserInput();
-            }
         }
 
-        public void tick(){
-            Timer timer = new Timer();
-            timer.scheduleAtFixedRate(new TimerTask() {
+        public void tick(Timer timer){
+            this.timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
-                public void run() {
+                public void run(){
                     refreshDisplay();
                 }
             }, 0, 1000);
-
         }
+        
+        public void stopTick(){
+            timer.cancel();
+        }
+
     //Overide Begin Play --------------------------------------------------------------
     @Override
     public void beginPlay() {
         super.beginPlay();
         AObject GameInstance = new TicTacToeXGameInstance(new Vectors.Vector3D (0.0,0.0,0.0), this, this);
-        tick();
+        tick(timer = new Timer());
+        allowActivePlayerToMakeMove();
     }
 }
     

@@ -77,7 +77,7 @@ public class TicTacToeX_TitleScreen extends Map{
                                 "|                 - The refresh rate of the game is the only time you can input a move ie. within 1 sec.                |\n"+
                                 "|                 - Use your abilities by typing Q,W,E,R (Each have a cooldown)                                         |\n"+
                                 "|                 - Earn Toe Essence by killing enemies.                                                                |\n"+
-                                "|                 - Type x to stop.                                                                                     |\n"+
+                                "|                 - Type x to stop when in game (not here).                                                             |\n"+
                                 "|-----------------------------------------------------------------------------------------------------------------------|");
             System.out.println("Enter Input: ");
                             }
