@@ -43,10 +43,9 @@ public class TicTacToeX_DefaultMap extends Map{
 
         //Refreshes The UI
         public void TickRefreshTheConsole(){
-            ClearConsoleObject clearConsoleObject = new ClearConsoleObject();
             Scanner myScanner = new Scanner(System.in);
             while(true){
-                clearConsoleObject.clearConsole();
+                ClearConsoleObject.clearConsole();
                 ticks++;
                 System.out.println("WELCOME TO TIC-TAC-TOE-X | ticks: " + ticks);
                 String userInput = myScanner.nextLine();
@@ -66,13 +65,56 @@ public class TicTacToeX_DefaultMap extends Map{
             myScanner.close();
         }
 
+        public void createDisplay(){
+            System.out.println("|-----------------------------------------------------------------------------------------------------------------------|\n"+
+                                "\n"+
+                                "\n"+
+                                "\n"+
+                                "\n"+
+                                "\n"+
+                                "\n"+
+                                "\n"+
+                                "\n"+
+                                "                                                      1   2   3  \n"+
+                                "                                                    |-----------|\n"+
+                                "                                                 1  | X | O | X |\n"+
+                                "                                                 2  | X | O | X |\n"+
+                                "                                                 3  | X | O | X |\n"+
+                                "                                                    |-----------|\n"+
+                                "\n"+
+                                "\n"+
+                                "\n"+
+                                "\n"+
+                                "\n"+
+                                "\n"+
+                                "\n"+
+                                "\n"+
+                               "|-----------------------------------------------------------------------------------------------------------------------|");
+
+        }
+
+        public void refreshDisplay(){
+            ClearConsoleObject.clearConsole();
+            createDisplay();
+            
+        }
+
+        public void tick(){
+            Timer timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    refreshDisplay();
+                }
+            }, 0, 1000);
+
+        }
     //Overide Begin Play --------------------------------------------------------------
     @Override
     public void beginPlay() {
         super.beginPlay();
-        TicTacToeXGameInstance GameInstance = new TicTacToeXGameInstance(new Vectors.Vector3D (0.0,0.0,0.0), this, this);
-        TickRefreshTheConsole();
-        System.out.println("GAME ENDED!");
+        AObject GameInstance = new TicTacToeXGameInstance(new Vectors.Vector3D (0.0,0.0,0.0), this, this);
+        tick();
     }
 }
     

@@ -13,7 +13,7 @@ public class TicTacToeXGameInstance extends GameInstance{
     @Override
     public void beginPlay() {
         super.beginPlay();
-        TicTacToeXPlayerController tttxPlayerController = new TicTacToeXPlayerController(new Vectors.Vector3D (0.0,0.0,0.0), owner, worldReference);
-        TicTacToeXAIController tttxAIController = new TicTacToeXAIController(new Vectors.Vector3D (0.0,0.0,0.0), owner, worldReference);
+        AObject tttxPlayerController = new TicTacToeXPlayerController(new Vectors.Vector3D (0.0,0.0,0.0), owner, worldReference);
+        AObject tttxAIController = new TicTacToeXAIController(new Vectors.Vector3D (0.0,0.0,0.0), owner, worldReference);
     }
 }
