@@ -11,6 +11,7 @@ public class TicTacToeXPlayerController extends PlayerController{
     
     TicTacToeX_DefaultMap ticTacToeX_DefaultMap;
     int boardIndex = 0;
+    int abilityUseIndex = 0;
 
     //constructor
     public TicTacToeXPlayerController(Vectors.Vector3D actorVectors, Actor owner, source.classes.base_classes.AObject worldReference) {
@@ -21,31 +22,36 @@ public class TicTacToeXPlayerController extends PlayerController{
 
 
     //Fucntions   
+        //takes input from the player 
         public void takeUserInput(){
+            boolean placedOnBoardNotAbility = true;
+
             Scanner myScanner = new Scanner(System.in);
                 while (myScanner.hasNextLine()) {
                     String userInput = myScanner.nextLine().toLowerCase();
                     switch (userInput) {
-                        case "11": boardIndex = 0; break;   
-                        case "12": boardIndex = 3; break; 
-                        case "13": boardIndex = 6; break; 
-                        case "21": boardIndex = 1; break; 
-                        case "22": boardIndex = 4; break; 
-                        case "23": boardIndex = 7; break; 
-                        case "31": boardIndex = 2; break; 
-                        case "32": boardIndex = 5; break; 
-                        case "33": boardIndex = 8; break; 
+                        case "11": placeCharOnBoard(0); break;   
+                        case "12": placeCharOnBoard(3); break; 
+                        case "13": placeCharOnBoard(6); break; 
+                        case "21": placeCharOnBoard(1); break; 
+                        case "22": placeCharOnBoard(4); break; 
+                        case "23": placeCharOnBoard(7); break; 
+                        case "31": placeCharOnBoard(2); break; 
+                        case "32": placeCharOnBoard(5); break; 
+                        case "33": placeCharOnBoard(8); break; 
+                        case "Q": useAbility(1); break; 
+                        case "W": useAbility(2); break; 
+                        case "E": useAbility(3); break; 
+                        case "R": useAbility(4); break; 
                         case "x":
-                            AObject titleScreen = new TicTacToeX_TitleScreen(new Vectors.Vector3D(0.0, 0.0, 0.0), null, null);
                             this.ticTacToeX_DefaultMap.stopTick();
-                            myScanner.close();
+                            new TicTacToeX_TitleScreen(new Vectors.Vector3D(0.0, 0.0, 0.0), null, null);
                             break;
                         default:
                         System.out.println("------------------ INVALID INPUT ------------------");
                         break;
                     }
-                    setBoardValue();
-                }
+                } 
         }
         
         public void setBoardValue(){
@@ -61,7 +67,15 @@ public class TicTacToeXPlayerController extends PlayerController{
 
         }
 
+        public void placeCharOnBoard(int index){
+            this.boardIndex = index;
+            setBoardValue();
+        }
 
+        public void useAbility(int index){
+            this.abilityUseIndex = index;
+            
+        }
     @Override
     public void beginPlay() {
         super.beginPlay();

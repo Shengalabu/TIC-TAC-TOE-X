@@ -109,18 +109,55 @@ public class TicTacToeX_DefaultMap extends Map{
                 }
         }
         
+        //For when the player is an X or an O (True on X)
         public char setBoardValueBasedOnBool(Boolean bool){
             if (bool) {
                 return 'X';
             }
             return 'O';
         }
-
-        public void setBoardValue(int index, boolean isX){
-            this.board[index]= setBoardValueBasedOnBool(isX);
+     
+        public boolean checkIfThreeIndicesAreTheSameChar(int n1, int n2, int n3){
+            if ((this.board[n1] == this.board[n2]) && (this.board[n2] == this.board[n3]) && (this.board[n1] != ' ')) {
+                return true;
+            }
+            return false;
         }
 
-        public  void refreshDisplay(){
+        public boolean checkIfSomeoneHasWonInBoardCombat(){
+            if(
+                checkIfThreeIndicesAreTheSameChar(0,1,2)
+                ||
+                checkIfThreeIndicesAreTheSameChar(3,4,5)
+                ||
+                checkIfThreeIndicesAreTheSameChar(6,7,8)
+                ||
+                checkIfThreeIndicesAreTheSameChar(0,3,6)
+                ||
+                checkIfThreeIndicesAreTheSameChar(1,4,7)
+                ||
+                checkIfThreeIndicesAreTheSameChar(6,7,8)
+                ||
+                checkIfThreeIndicesAreTheSameChar(0,4,8)
+                ||
+                checkIfThreeIndicesAreTheSameChar(6,4,2)
+            ){
+                return true;
+            }
+            return false;
+        }
+
+        public void setBoardValue(int index, boolean isX){
+            if(this.board[index] != ' '){
+                this.board[index]= setBoardValueBasedOnBool(isX);
+            }
+            if (checkIfSomeoneHasWonInBoardCombat()){
+                stopTick();
+            }
+            refreshDisplay();
+        }
+
+        public void refreshDisplay(){
             ClearConsoleObject.clearConsole();
             createDisplay();
         }
@@ -135,9 +172,11 @@ public class TicTacToeX_DefaultMap extends Map{
         }
         
         public void stopTick(){
-            timer.notifyAll();
-            timer.cancel();
-            timer.purge();
+            
+            
+            this.timer.cancel();
+            this.timer.purge();
+            ClearConsoleObject.clearConsole();
         }
 
     //Overide Begin Play --------------------------------------------------------------
@@ -146,7 +185,7 @@ public class TicTacToeX_DefaultMap extends Map{
         super.beginPlay();
         AObject GameInstance = new TicTacToeXGameInstance(new Vectors.Vector3D (0.0,0.0,0.0), this, this);
         board = new char[]{' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
-        tick(timer = new Timer());
+        tick(this.timer = new Timer());
         allowActivePlayerToMakeMove();
     }
 }
