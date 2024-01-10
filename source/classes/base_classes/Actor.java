@@ -23,7 +23,7 @@ public class Actor extends AObject {
         //Spawns actor in a location
         public <T> T spawnActorFromClass(Class<T> clazz, Vectors.Vector3D location, Actor owner, AObject worldReference){
                 try{
-                    java.lang.reflect.Constructor<T> constructor = clazz.getConstructor(Vectors.Vector3D.class, AObject.class, AObject.class);
+                    java.lang.reflect.Constructor<T> constructor = clazz.getConstructor(Vectors.Vector3D.class, Actor.class, AObject.class);
                     return constructor.newInstance(location, owner, worldReference);
                 } catch  (Exception e){
                     e.printStackTrace();

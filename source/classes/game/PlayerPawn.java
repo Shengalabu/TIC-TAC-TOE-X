@@ -30,7 +30,13 @@ public class PlayerPawn extends Pawn implements MasterAttackInterface{
     //Begin play overide
         @Override
         public void beginPlay(){
-        System.out.println("Player Initiallized");
+            System.out.println("Player Initiallized");
+            
+            //Sets player ref in default map
+            if (worldReference instanceof TicTacToeX_DefaultMap){
+               TicTacToeX_DefaultMap defaultMap = (TicTacToeX_DefaultMap) worldReference;
+               defaultMap.SetAsPlayerIndex(0, this);
+            }
         }
 
 }

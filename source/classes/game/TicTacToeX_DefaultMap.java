@@ -93,10 +93,17 @@ public class TicTacToeX_DefaultMap extends Map{
 
         }
 
+        public PlayerPawn getActivePlayerIndex(){
+            return playerX;
+        }
+
         public void refreshDisplay(){
             ClearConsoleObject.clearConsole();
             createDisplay();
-            
+             if (playerX.owner instanceof TicTacToeXPlayerController){
+                TicTacToeXPlayerController tttxPlayerController = (TicTacToeXPlayerController) playerX.owner;
+                tttxPlayerController.takeUserInput();
+            }
         }
 
         public void tick(){

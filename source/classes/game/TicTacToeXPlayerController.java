@@ -15,19 +15,23 @@ public class TicTacToeXPlayerController extends PlayerController{
     //Fucntions   
         public void takeUserInput(){
             Scanner myScanner = new Scanner(System.in);
-            String userInput = myScanner.nextLine().toLowerCase();
-            switch (userInput) {
-                case "11":
+                if (myScanner.hasNextLine()){
+                    String userInput = myScanner.nextLine().toLowerCase();
+                    switch (userInput) {
+                        case "11":
 
-                    break;
-
-                default:
-                System.out.println("------------------ INVALID INPUT ------------------");
-                this.delayTime(1000);
-                break;
-            }
-            myScanner.close();
+                            break;
+                        case "x":
+                            AObject titleScreen = new TicTacToeX_TitleScreen(new Vectors.Vector3D(0.0, 0.0, 0.0), null, null);
+                            break;
+                        default:
+                        System.out.println("------------------ INVALID INPUT ------------------");
+                        this.delayTime(1000);
+                        break;
+                    }
+                }
         }
+
 
     @Override
     public void beginPlay() {
