@@ -4,7 +4,7 @@ import source.classes.base_classes.AObject;
 import source.classes.base_classes.math.Vectors;
 import source.classes.game.TicTacToeX_TitleScreen;
 
-public class Main extends AObject {
+public class Main {
 
 
 
