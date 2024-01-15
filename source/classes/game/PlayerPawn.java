@@ -1,6 +1,7 @@
 package source.classes.game;
 
 import source.classes.base_classes.Actor;
+import source.classes.base_classes.AMap;
 import source.classes.base_classes.AObject;
 import source.classes.base_classes.Pawn;
 import source.classes.base_classes.interfaces.MasterAttackInterface;
@@ -8,12 +9,12 @@ import source.classes.base_classes.math.Vectors;
 
 public class PlayerPawn extends Pawn implements MasterAttackInterface{
     //constructor
-    public PlayerPawn(Vectors.Vector3D actorVectors, Actor owner, AObject worldReference) {
+    public PlayerPawn(Vectors.Vector3D actorVectors, Actor owner, AMap worldReference) {
         super(actorVectors, owner, worldReference);
     }
 
         //Contruct components here----------------------------------------------------------------------
-        HealthComponent healthComponent = new HealthComponent(new Vectors.Vector3D (0.0,0.0,0.0), this, this);
+        HealthComponent healthComponent = new HealthComponent(new Vectors.Vector3D (0.0,0.0,0.0), this, worldReferenceClass);
 
     //Implement interfaces here --------------------------------------------------------------------
         @Override
@@ -31,12 +32,6 @@ public class PlayerPawn extends Pawn implements MasterAttackInterface{
         @Override
         public void beginPlay(){
             System.out.println("Player Initiallized");
-            
-            //Sets player ref in default map
-            if (worldReference instanceof TicTacToeX_DefaultMap){
-               TicTacToeX_DefaultMap defaultMap = (TicTacToeX_DefaultMap) worldReference;
-               defaultMap.SetAsPlayerIndex(0, this);
-            }
-        }
 
+        }
 }

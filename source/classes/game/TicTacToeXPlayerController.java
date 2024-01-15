@@ -2,6 +2,7 @@ package source.classes.game;
 
 import java.util.Scanner;
 
+import source.classes.base_classes.AMap;
 import source.classes.base_classes.AObject;
 import source.classes.base_classes.Actor;
 import source.classes.base_classes.PlayerController;
@@ -12,14 +13,12 @@ public class TicTacToeXPlayerController extends PlayerController{
     TicTacToeX_DefaultMap ticTacToeX_DefaultMap;
     int boardIndex = 0;
     int abilityUseIndex = 0;
+    Board board;
 
     //constructor
-    public TicTacToeXPlayerController(Vectors.Vector3D actorVectors, Actor owner, source.classes.base_classes.AObject worldReference) {
+    public TicTacToeXPlayerController(Vectors.Vector3D actorVectors, Actor owner, AMap worldReference) {
         super(actorVectors, owner, worldReference);
     }
-
-
-
 
     //Fucntions   
         //takes input from the player 
@@ -44,7 +43,7 @@ public class TicTacToeXPlayerController extends PlayerController{
                         case "E": useAbility(3); break; 
                         case "R": useAbility(4); break; 
                         case "x":
-                            this.ticTacToeX_DefaultMap.stopTick();
+                            this.board.stopTick();
                             new TicTacToeX_TitleScreen(new Vectors.Vector3D(0.0, 0.0, 0.0), null, null);
                             break;
                         default:
@@ -55,16 +54,11 @@ public class TicTacToeXPlayerController extends PlayerController{
         }
         
         public void setBoardValue(){
-            ticTacToeX_DefaultMap.setBoardValue(this.boardIndex, true);
+            this.board.setBoardValue(this.boardIndex, true);
         }
 
-        public TicTacToeX_DefaultMap setDefaultMapRef(){
-            if (worldReference instanceof TicTacToeX_DefaultMap){
-                this.ticTacToeX_DefaultMap = (TicTacToeX_DefaultMap) worldReference;
-                return ticTacToeX_DefaultMap;
-            }
-            return ticTacToeX_DefaultMap;
-
+        public void setNewBoardValue(Board board){
+            this.board = board;
         }
 
         public void placeCharOnBoard(int index){
@@ -79,7 +73,6 @@ public class TicTacToeXPlayerController extends PlayerController{
     @Override
     public void beginPlay() {
         super.beginPlay();
-        setDefaultMapRef();
         AObject playerRef = new PlayerPawn(new Vectors.Vector3D (1000.0,0.0,0.0), this, worldReference);
         
     }

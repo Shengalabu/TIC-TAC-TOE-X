@@ -4,7 +4,7 @@ import source.classes.base_classes.math.Vectors;
 
 public class ActorComponent extends Actor{
         // Default constructor
-        public ActorComponent(Vectors.Vector3D actorVectors, Actor owner, AObject worldReference) {
+        public ActorComponent(Vectors.Vector3D actorVectors, Actor owner, Map worldReference) {
             super(actorVectors, owner, worldReference);
         }
 }
