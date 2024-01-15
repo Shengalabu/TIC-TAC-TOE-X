@@ -1,6 +1,6 @@
 package source.classes.game;
 
-import source.classes.base_classes.Map;
+import source.classes.base_classes.AMap;
 import source.classes.base_classes.math.Vectors;
 import source.classes.base_classes.AObject;
 import source.classes.base_classes.Actor;
@@ -23,7 +23,7 @@ public class Board extends Actor{
     Timer timer;
     char[] boardData;
 
-    public Board(Vectors.Vector3D actorVectors, Actor owner, AObject worldReference) {
+    public Board(Vectors.Vector3D actorVectors, Actor owner, AMap worldReference) {
         super(actorVectors, owner, worldReference);
     }
 
@@ -31,6 +31,18 @@ public class Board extends Actor{
         //Set Player Index and reference for the game to know who is X and O.
 
         //Refreshes The UI
+        public void setPlayerReference(PlayerPawn player){
+            if ((Math.random() < 0.5)){
+                if (playerX != null) {
+                    this.playerX = player;
+                    return;
+                }
+                this.playerO = player; 
+                return;
+            }
+            return;
+        }
+
         public void TickRefreshTheConsole(){
             Scanner myScanner = new Scanner(System.in);
             while(true){
@@ -160,11 +172,12 @@ public class Board extends Actor{
         }
         
         public void stopTick(){
-            
-            
-            this.timer.cancel();
-            this.timer.purge();
-            ClearConsoleObject.clearConsole();
+            if (this.timer == null){
+                this.timer.cancel();
+                this.timer.purge();
+                ClearConsoleObject.clearConsole();
+            }
+            return;   
         }
 
     //Overide Begin Play --------------------------------------------------------------

@@ -4,7 +4,6 @@ import source.classes.base_classes.GameInstance;
 import source.classes.base_classes.math.Vectors;
 import source.classes.base_classes.Actor;
 import source.classes.base_classes.AMap;
-import source.classes.base_classes.AObject;
 
 public class TicTacToeXGameInstance extends GameInstance{
     //constructor
@@ -13,16 +12,17 @@ public class TicTacToeXGameInstance extends GameInstance{
     }
 
 
+
+
     Board board; 
 
     @Override
     public void beginPlay() {
         super.beginPlay();
-        TicTacToeXPlayerController tttxPlayerController = new TicTacToeXPlayerController(new Vectors.Vector3D (1000.0,0.0,0.0), owner, worldReference);
-        TicTacToeXAIController tttxAIController = new TicTacToeXAIController(new Vectors.Vector3D (-1000.0,0.0,0.0), owner, worldReference);
-        board = new Board(new Vectors.Vector3D (-1000.0,0.0,0.0), owner, worldReference);
-        tttxPlayerController.setNewBoardValue(board);
-        tttxAIController.setNewBoardValue(board);
-
+        board = worldReference.spawnActorFromClass(Board.class, new Vectors.Vector3D (-1000.0,0.0,0.0), owner, worldReference);
+       // TicTacToeXPlayerController tttxPlayerController = worldReference.spawnActorFromClass(TicTacToeXPlayerController.class, new Vectors.Vector3D (-1000.0,0.0,0.0), owner, worldReference);
+       // TicTacToeXAIController tttxAIController = worldReference.spawnActorFromClass(TicTacToeXAIController.class, new Vectors.Vector3D (-1000.0,0.0,0.0), owner, worldReference);
+       // tttxPlayerController.setNewBoardValue(board);
+       // tttxAIController.setNewBoardValue(board);
     }
 }

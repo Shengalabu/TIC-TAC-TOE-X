@@ -70,10 +70,19 @@ public class TicTacToeXPlayerController extends PlayerController{
             this.abilityUseIndex = index;
             
         }
+
+        public Board castToBoard(Actor actor){
+            if (actor instanceof Board){
+                Board board = (Board) actor;
+                return board;
+            }
+            return null;
+        }
+
     @Override
     public void beginPlay() {
         super.beginPlay();
-        AObject playerRef = new PlayerPawn(new Vectors.Vector3D (1000.0,0.0,0.0), this, worldReference);
-        
+
+        //PlayerPawn playerRef = worldReference.spawnActorFromClass(PlayerPawn.class, new Vectors.Vector3D(1000.0,0.0,0.0), owner, worldReference);
     }
 }

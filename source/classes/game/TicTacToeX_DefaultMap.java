@@ -17,16 +17,12 @@ import java.util.Scanner;
 
 public class TicTacToeX_DefaultMap extends AMap{
     //constructor --------------------------------------------------------------
-    PlayerPawn playerX;
-    PlayerPawn playerO;
-    int ticks = 0;
-    Timer timer;
-    char[] board;
-    Board Gameboard;
-
     public TicTacToeX_DefaultMap(Vectors.Vector3D actorVectors, Actor owner, AMap worldReference) {
         super(actorVectors, owner, worldReference);
     }
+
+
+
 
     //functions --------------------------------------------------------------
         //Set Player Index and reference for the game to know who is X and O.
@@ -35,7 +31,7 @@ public class TicTacToeX_DefaultMap extends AMap{
     @Override
     public void beginPlay() {
         super.beginPlay();
-        AObject GameInstance = new TicTacToeXGameInstance(new Vectors.Vector3D (0.0,0.0,0.0), this, this);
+        TicTacToeXGameInstance GameInstance = this.spawnActorFromClass(TicTacToeXGameInstance.class, new Vectors.Vector3D (-1000.0,0.0,0.0), owner, worldReference);
     }
 }
     
