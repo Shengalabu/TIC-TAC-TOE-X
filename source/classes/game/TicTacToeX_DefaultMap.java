@@ -156,7 +156,7 @@ public class TicTacToeX_DefaultMap extends Map{
         public void createDisplay(){
             System.out.println("|----------------------------------------------------- OPPONENT ----------------------------------------------------|\n"+
                                 "\n");
-                                System.out.printf  ("%-26s%-26s%-26s%-26s%-26s\n", "Cull:" + "15", "Fireball:" + "12", "Cosmic_Rupture:" + "10","Parry:" + "5", "Health: " + playerO.getHealth()); 
+                                System.out.printf  ("%-26s%-26s%-26s%-26s%-26s\n", displayAbilityName(1, 0)+ ":" + displayAbilityCooldown(1, 0), displayAbilityName(1, 1) + ":" + displayAbilityCooldown(1, 1), displayAbilityName(1, 2) + ":" + displayAbilityCooldown(1, 2),displayAbilityName(1, 3) + ":" +displayAbilityCooldown(1, 0), "Health: " + playerO.getHealth()); 
 
             System.out.println ("\n"+
                                 "\n"+
