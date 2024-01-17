@@ -1,10 +1,9 @@
 package source.classes.base_classes;
 
-import source.classes.base_classes.math.Vectors;
-
+//Serves as an easy way to add behavior to an existing actor.
 public class ActorComponent extends Actor{
         // Default constructor
-        public ActorComponent(Vectors.Vector3D actorVectors, Actor owner, AObject worldReference) {
-            super(actorVectors, owner, worldReference);
+        public ActorComponent(Actor owner, AObject worldReference) {
+            super(owner, worldReference);
         }
 }

@@ -1,10 +1,9 @@
 package source.classes.base_classes;
 
-import source.classes.base_classes.math.Vectors;
-
+//The player controller class is the base class for player controllers.
 public class PlayerController extends Controller{
     //constructor
-        public PlayerController(Vectors.Vector3D actorVectors, Actor owner, AObject worldReference) {
-            super(actorVectors, owner, worldReference);
+        public PlayerController(Actor owner, AObject worldReference) {
+            super(owner, worldReference);
         }
 }

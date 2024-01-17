@@ -4,21 +4,35 @@ import source.classes.base_classes.Actor;
 import source.classes.base_classes.AObject;
 import source.classes.base_classes.Pawn;
 import source.classes.base_classes.interfaces.MasterAttackInterface;
-import source.classes.base_classes.math.Vectors;
 
 public class PlayerPawn extends Pawn implements MasterAttackInterface{
+    char TicTacToeValue = 'X';
+    TicTacToeX_DefaultMap tttx_DefaultMap;
+    TicTacToeXPlayerController tttx_PlayerController;
+    HealthComponent healthComponent;
+
+    AbilityBase abilityQ;
+    AbilityBase abilityW;
+    AbilityBase abilityE;
+    AbilityBase abilityR;
+
+
     //constructor
-    public PlayerPawn(Vectors.Vector3D actorVectors, Actor owner, AObject worldReference) {
-        super(actorVectors, owner, worldReference);
+    public PlayerPawn(Actor owner, AObject worldReference, char TicTacToeValue, float MaxHealth) {
+        super(owner, worldReference);
+        this.TicTacToeValue = TicTacToeValue;
+        if (worldReference instanceof TicTacToeX_DefaultMap) {
+            tttx_DefaultMap = (TicTacToeX_DefaultMap) worldReference;
+            healthComponent = new HealthComponent(this, worldReference, MaxHealth);
+        }
     }
 
-        //Contruct components here----------------------------------------------------------------------
-        HealthComponent healthComponent = new HealthComponent(new Vectors.Vector3D (0.0,0.0,0.0), this, this);
+    //Contruct components here----------------------------------------------------------------------
 
     //Implement interfaces here --------------------------------------------------------------------
         @Override
         public void sendDamage(float damageAmount){
-            System.out.println("DamageTaken: " + damageAmount);
+            healthComponent.takeDamage(damageAmount);
         }
 
     //Declare functions here------------------------------------------------------------------------
@@ -26,17 +40,19 @@ public class PlayerPawn extends Pawn implements MasterAttackInterface{
         public float getHealth(){
             return healthComponent.getHealth();
         }
+    
+        public void possess (TicTacToeXPlayerController tttx_PlayerController){
+            this.tttx_PlayerController = tttx_PlayerController;
+            this.owner = tttx_PlayerController;
+        }
 
     //Begin play overide
         @Override
         public void beginPlay(){
-            System.out.println("Player Initiallized");
-            
-            //Sets player ref in default map
-            if (worldReference instanceof TicTacToeX_DefaultMap){
-               TicTacToeX_DefaultMap defaultMap = (TicTacToeX_DefaultMap) worldReference;
-               defaultMap.SetAsPlayerIndex(0, this);
-            }
+            abilityQ = new Ability_SteelTempest(this, tttx_DefaultMap);
+            abilityW = new AbilityBase(this, tttx_DefaultMap);
+            abilityE = new AbilityBase(this, tttx_DefaultMap);
+            abilityR = new AbilityBase(this, tttx_DefaultMap);
         }
 
 }
