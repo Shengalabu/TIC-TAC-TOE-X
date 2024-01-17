@@ -2,17 +2,46 @@ package source.classes.game;
 
 import source.classes.base_classes.Actor;
 import source.classes.base_classes.ActorComponent;
-import source.classes.base_classes.math.Vectors;
+import source.classes.base_classes.AObject;
 
 public class HealthComponent extends ActorComponent{
+    float health;
+    float maxHealth;
+    
     //constructor
-    public HealthComponent(Vectors.Vector3D actorVectors, Actor owner, source.classes.base_classes.AObject worldReference) {
-        super(actorVectors, owner, worldReference);
+    public HealthComponent(Actor owner, AObject worldReference,float maxHealth) {
+        super(owner, worldReference);
+        this.health = maxHealth;
+        this.maxHealth = maxHealth;
     }
-    float Health = 100;
+    
+    
 
     //Returns the health of the component
     public float getHealth(){
-        return Health;
+        return health;
     }
+
+    public float takeDamage(float damage){
+        health -= damage;
+        if (health <= 0){
+            health = 0;
+            if (owner.owner instanceof TicTacToeXAIController){
+                if(worldReference instanceof TicTacToeX_DefaultMap){
+                    ((TicTacToeX_DefaultMap) worldReference).setGameOver(true);
+                }
+            }
+            if (owner.owner instanceof TicTacToeXPlayerController){
+                if(worldReference instanceof TicTacToeX_DefaultMap){
+                    ((TicTacToeX_DefaultMap) worldReference).setGameOver(false);
+                }
+            }
+        }
+        return health;
+    }
+
+    public float getMaxHealth(){
+        return maxHealth;
+    }
+
 }

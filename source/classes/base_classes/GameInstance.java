@@ -1,9 +1,8 @@
 package source.classes.base_classes;
 
-import source.classes.base_classes.math.Vectors;
-
+//Deprecated
 public class GameInstance extends Actor{
-   public GameInstance(Vectors.Vector3D actorVectors, Actor owner, AObject worldReference) {
-        super(actorVectors, owner, worldReference);
+   public GameInstance(Actor owner, AObject worldReference) {
+        super(owner, worldReference);
 }
 }

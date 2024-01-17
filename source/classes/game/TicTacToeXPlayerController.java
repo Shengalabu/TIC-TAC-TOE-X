@@ -1,31 +1,42 @@
 package source.classes.game;
 
-import java.util.Scanner;
-
 import source.classes.base_classes.AObject;
 import source.classes.base_classes.Actor;
 import source.classes.base_classes.PlayerController;
-import source.classes.base_classes.math.Vectors;
+
+import java.util.Scanner;
 
 public class TicTacToeXPlayerController extends PlayerController{
-    
-    TicTacToeX_DefaultMap ticTacToeX_DefaultMap;
-    int boardIndex = 0;
-    int abilityUseIndex = 0;
+    char TicTacToeValue = 'X';
+    TicTacToeX_DefaultMap tttx_DefaultMap;
+    PlayerPawn player;
 
-    //constructor
-    public TicTacToeXPlayerController(Vectors.Vector3D actorVectors, Actor owner, source.classes.base_classes.AObject worldReference) {
-        super(actorVectors, owner, worldReference);
+    //Constructor
+    public TicTacToeXPlayerController(Actor owner, AObject worldReference, char TicTacToeValue, PlayerPawn player) {
+        super(owner, worldReference);
+        this.TicTacToeValue = TicTacToeValue;
+        if (worldReference instanceof TicTacToeX_DefaultMap) {
+            tttx_DefaultMap = (TicTacToeX_DefaultMap) worldReference;
+        }
+        this.player = player;
     }
 
+    public void placeCharOnBoard(int index){
+        tttx_DefaultMap.setBoardValue(index, TicTacToeValue);
+    }
 
+    public void useAbility(int index){
+        switch (index) {
+            case 0: player.abilityQ.tryRunAbility(); break;
+            case 1: player.abilityW.tryRunAbility(); break;
+            case 2: player.abilityE.tryRunAbility(); break;
+            case 3: player.abilityR.tryRunAbility(); break;
+            default:
+                break;
+        }
+    }
 
-
-    //Fucntions   
-        //takes input from the player 
-        public void takeUserInput(){
-            boolean placedOnBoardNotAbility = true;
-
+    public void takeUserInput(){
             Scanner myScanner = new Scanner(System.in);
                 while (myScanner.hasNextLine()) {
                     String userInput = myScanner.nextLine().toLowerCase();
@@ -39,48 +50,22 @@ public class TicTacToeXPlayerController extends PlayerController{
                         case "31": placeCharOnBoard(2); break; 
                         case "32": placeCharOnBoard(5); break; 
                         case "33": placeCharOnBoard(8); break; 
-                        case "Q": useAbility(1); break; 
-                        case "W": useAbility(2); break; 
-                        case "E": useAbility(3); break; 
-                        case "R": useAbility(4); break; 
+                        case "q": useAbility(1); break; 
+                        case "w": useAbility(2); break; 
+                        case "e": useAbility(3); break; 
+                        case "r": useAbility(4); break; 
                         case "x":
-                            this.ticTacToeX_DefaultMap.stopTick();
-                            new TicTacToeX_TitleScreen(new Vectors.Vector3D(0.0, 0.0, 0.0), null, null);
+                            if (worldReference instanceof TicTacToeX_DefaultMap){
+                                ((TicTacToeX_DefaultMap) worldReference).stopTick();
+                            }
+                            new TicTacToeX_TitleScreen(null, null);
                             break;
                         default:
                         System.out.println("------------------ INVALID INPUT ------------------");
                         break;
                     }
                 } 
-        }
-        
-        public void setBoardValue(){
-            ticTacToeX_DefaultMap.setBoardValue(this.boardIndex, true);
-        }
-
-        public TicTacToeX_DefaultMap setDefaultMapRef(){
-            if (worldReference instanceof TicTacToeX_DefaultMap){
-                this.ticTacToeX_DefaultMap = (TicTacToeX_DefaultMap) worldReference;
-                return ticTacToeX_DefaultMap;
-            }
-            return ticTacToeX_DefaultMap;
-
-        }
-
-        public void placeCharOnBoard(int index){
-            this.boardIndex = index;
-            setBoardValue();
-        }
-
-        public void useAbility(int index){
-            this.abilityUseIndex = index;
-            
-        }
-    @Override
-    public void beginPlay() {
-        super.beginPlay();
-        setDefaultMapRef();
-        AObject playerRef = new PlayerPawn(new Vectors.Vector3D (1000.0,0.0,0.0), this, worldReference);
-        
     }
 }
+
+

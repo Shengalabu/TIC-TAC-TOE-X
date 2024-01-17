@@ -1,7 +1,6 @@
 package source.classes.game;
 
 import source.classes.base_classes.Map;
-import source.classes.base_classes.math.Vectors;
 import source.classes.base_classes.AObject;
 import source.classes.base_classes.Actor;
 import source.classes.base_classes.ClearConsoleObject;
@@ -13,8 +12,8 @@ import java.util.Scanner;
 
 public class TicTacToeX_TitleScreen extends Map{
     //constructor
-    public TicTacToeX_TitleScreen(Vectors.Vector3D actorVectors, Actor owner, AObject worldReference) {
-        super(actorVectors, owner, worldReference);
+    public TicTacToeX_TitleScreen(Actor owner, AObject worldReference) {
+        super(owner, worldReference);
     }
 
     //Fucntions -----------------------------------------------------------------------
@@ -31,7 +30,7 @@ public class TicTacToeX_TitleScreen extends Map{
 
             switch (userInput) {
                 case "play":
-                    AObject defaultMapInstance = new TicTacToeX_DefaultMap(new Vectors.Vector3D(0.0, 0.0, 0.0), this, null);
+                    AObject defaultMapInstance = new TicTacToeX_DefaultMap(this, null);
                     myScanner.close();
                     break;
                 case "refresh rate":
