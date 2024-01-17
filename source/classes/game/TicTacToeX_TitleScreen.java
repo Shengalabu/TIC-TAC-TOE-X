@@ -33,12 +33,12 @@ public class TicTacToeX_TitleScreen extends Map{
                     AObject defaultMapInstance = new TicTacToeX_DefaultMap(this, null);
                     myScanner.close();
                     break;
-                case "refresh rate":
+                case "test input":
                     System.out.println("You Got Bamboozled");
                     delayTime(1000);
                     beginPlay();    
                     break;
-                case "refreshrate":
+                case "testinput":
                     System.out.println("You Got Bamboozled 2");
                     delayTime(1000);
                     beginPlay();                    
@@ -68,7 +68,7 @@ public class TicTacToeX_TitleScreen extends Map{
                                 "|                                                           1.0                                                         |\n"+
                                 "|                                                                                                                       |\n"+
                                 "|                                                          PLAY                                                         |\n"+
-                                "|                                                       REFRESH RATE                                                    |\n"+
+                                "|                                                       TEST INPUT                                                      |\n"+
                                 "|                                                          EXIT                                                         |\n"+
                                 "|                                                                                                                       |\n"+
                                 "|    Instructions:                                                                                                      |\n"+
