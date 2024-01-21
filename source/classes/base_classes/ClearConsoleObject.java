@@ -2,6 +2,8 @@ package source.classes.base_classes;
 
 public class ClearConsoleObject extends AObject{
     public static void clearConsole() {
+        
+
         try {
             // Clear console command for Windows, Unix, and Mac
             String os = System.getProperty("os.name").toLowerCase();
@@ -15,5 +17,6 @@ public class ClearConsoleObject extends AObject{
             // Handle exceptions
             e.printStackTrace();
         }
+
     }    
 }

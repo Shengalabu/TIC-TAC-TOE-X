@@ -14,6 +14,7 @@ public class TicTacToeX_TitleScreen extends Map{
     //constructor
     public TicTacToeX_TitleScreen(Actor owner, AObject worldReference) {
         super(owner, worldReference);
+
     }
 
     //Fucntions -----------------------------------------------------------------------
@@ -23,7 +24,15 @@ public class TicTacToeX_TitleScreen extends Map{
             delayTime(300);
         }
     
-    
+        public void exitProgram(){
+                    clearThenPrintTextWithDelay("Cleaning.", 200);
+                    clearThenPrintTextWithDelay("Cleaning. .", 400);
+                    clearThenPrintTextWithDelay("Cleaning. . .", 300);
+                    clearThenPrintTextWithDelay("Cleaning Complete!", 100);
+                    clearThenPrintTextWithDelay("Exiting Program .", 50);
+                    clearThenPrintTextWithDelay("Exiting Program . .", 50);
+                    ClearConsoleObject.clearConsole();
+        }
         public void executePlayerInput(){
             Scanner myScanner = new Scanner(System.in);
             String userInput = myScanner.nextLine().toLowerCase();
@@ -43,13 +52,7 @@ public class TicTacToeX_TitleScreen extends Map{
                     delayTime(1000);
                     beginPlay();                    
                 case "exit":
-                    clearThenPrintTextWithDelay("Cleaning.", 200);
-                    clearThenPrintTextWithDelay("Cleaning. .", 400);
-                    clearThenPrintTextWithDelay("Cleaning. . .", 300);
-                    clearThenPrintTextWithDelay("Cleaning Complete!", 100);
-                    clearThenPrintTextWithDelay("Exiting Program .", 50);
-                    clearThenPrintTextWithDelay("Exiting Program . .", 50);
-                    ClearConsoleObject.clearConsole();
+                    exitProgram();
                     break;
                     default:
                     System.out.println("------------------ INVALID INPUT ------------------");

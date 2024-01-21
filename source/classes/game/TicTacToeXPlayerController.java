@@ -10,6 +10,9 @@ public class TicTacToeXPlayerController extends PlayerController{
     char TicTacToeValue = 'X';
     TicTacToeX_DefaultMap tttx_DefaultMap;
     PlayerPawn player;
+    boolean bTakeUserInput = true;
+    Scanner myScanner;
+    boolean markedForClosing = false;
 
     //Constructor
     public TicTacToeXPlayerController(Actor owner, AObject worldReference, char TicTacToeValue, PlayerPawn player) {
@@ -37,8 +40,11 @@ public class TicTacToeXPlayerController extends PlayerController{
     }
 
     public void takeUserInput(){
-            Scanner myScanner = new Scanner(System.in);
-                while (myScanner.hasNextLine()) {
+            myScanner = new Scanner(System.in);
+                while (bTakeUserInput) {
+                    if(markedForClosing || tttx_DefaultMap.gameEnded){
+                        break;
+                    }
                     String userInput = myScanner.nextLine().toLowerCase();
                     switch (userInput) {
                         case "11": placeCharOnBoard(0); break;   
@@ -50,21 +56,30 @@ public class TicTacToeXPlayerController extends PlayerController{
                         case "31": placeCharOnBoard(2); break; 
                         case "32": placeCharOnBoard(5); break; 
                         case "33": placeCharOnBoard(8); break; 
-                        case "q": useAbility(1); break; 
-                        case "w": useAbility(2); break; 
-                        case "e": useAbility(3); break; 
-                        case "r": useAbility(4); break; 
+                        case "q": useAbility(0); break; 
+                        case "w": useAbility(1); break; 
+                        case "e": useAbility(2); break; 
+                        case "r": useAbility(3); break; 
                         case "x":
-                            if (worldReference instanceof TicTacToeX_DefaultMap){
-                                ((TicTacToeX_DefaultMap) worldReference).stopTick();
-                            }
-                            new TicTacToeX_TitleScreen(null, null);
+                                close();
+                                if (worldReference instanceof TicTacToeX_DefaultMap){
+                                    ((TicTacToeX_DefaultMap) worldReference).setGameOver(false, true);
+                                }
                             break;
                         default:
                         System.out.println("------------------ INVALID INPUT ------------------");
                         break;
                     }
+                    if (userInput.equalsIgnoreCase("x")){
+                        break;
+                    }
                 } 
+    }
+
+
+    public void close(){
+        bTakeUserInput = false;
+        markedForClosing = true;
     }
 }
 

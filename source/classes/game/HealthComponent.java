@@ -28,12 +28,12 @@ public class HealthComponent extends ActorComponent{
             health = 0;
             if (owner.owner instanceof TicTacToeXAIController){
                 if(worldReference instanceof TicTacToeX_DefaultMap){
-                    ((TicTacToeX_DefaultMap) worldReference).setGameOver(true);
+                    ((TicTacToeX_DefaultMap) worldReference).setGameOver(true, false);
                 }
             }
             if (owner.owner instanceof TicTacToeXPlayerController){
                 if(worldReference instanceof TicTacToeX_DefaultMap){
-                    ((TicTacToeX_DefaultMap) worldReference).setGameOver(false);
+                    ((TicTacToeX_DefaultMap) worldReference).setGameOver(false, false);
                 }
             }
         }

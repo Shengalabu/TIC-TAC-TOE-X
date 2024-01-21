@@ -14,14 +14,7 @@ public class TicTacToeXAIController extends TicTacToeXPlayerController {
         public TicTacToeXAIController(Actor owner, AObject worldReference, char TicTacToeValue, PlayerPawn player) {
             super(owner, worldReference, TicTacToeValue, player);
         }
-        /*
-        @Override
-        public void takeUserInput(){
-            placeCharOnBoard(random.nextInt(9));
-        }
-        */
 
-        
         @Override
         public void beginPlay(){
             timer = new Timer();
@@ -32,8 +25,21 @@ public class TicTacToeXAIController extends TicTacToeXPlayerController {
                     if (tttx_DefaultMap.turnIndex == 2){
                         placeCharOnBoard(random.nextInt(9));
                     }
+                    player.abilityQ.tryRunAbility();
+                    player.abilityW.tryRunAbility();
+                    player.abilityE.tryRunAbility();
+                    player.abilityR.tryRunAbility();
                 }
             }, 0, random.nextInt(1300));
         }
+
+        @Override
+        public void close(){
+            super.close();
+           if (timer != null){
+            timer.cancel();
+            }
+        }
+
          
 }
