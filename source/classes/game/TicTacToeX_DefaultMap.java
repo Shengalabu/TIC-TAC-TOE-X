@@ -131,9 +131,9 @@ public class TicTacToeX_DefaultMap extends Map{
             if (playerIndex == 0){
                 switch (abilityIndex) {
                     case 0: return playerX.abilityQ.getCooldown();
-                    case 1: return playerX.abilityQ.getCooldown();
-                    case 2: return playerX.abilityQ.getCooldown();
-                    case 3: return playerX.abilityQ.getCooldown();
+                    case 1: return playerX.abilityW.getCooldown();
+                    case 2: return playerX.abilityE.getCooldown();
+                    case 3: return playerX.abilityR.getCooldown();
                     default:
                         break;
                 }
@@ -150,13 +150,16 @@ public class TicTacToeX_DefaultMap extends Map{
                 }
             }
 
-            return 0;
+            return 9999999;
         }
 
         public void createDisplay(){
+            if  (gameEnded){
+                return;
+            }
             System.out.println("|----------------------------------------------------- OPPONENT ----------------------------------------------------|\n"+
                                 "\n");
-                                System.out.printf  ("%-26s%-26s%-26s%-26s%-26s\n", displayAbilityName(1, 0)+ ":" + displayAbilityCooldown(1, 0), displayAbilityName(1, 1) + ":" + displayAbilityCooldown(1, 1), displayAbilityName(1, 2) + ":" + displayAbilityCooldown(1, 2),displayAbilityName(1, 3) + ":" +displayAbilityCooldown(1, 0), "Health: " + playerO.getHealth()); 
+                                System.out.printf  ("%-26s%-26s%-26s%-26s%-26s\n", displayAbilityName(1, 0)+ ":" + displayAbilityCooldown(1, 0), displayAbilityName(1, 1) + ":" + displayAbilityCooldown(1, 1), displayAbilityName(1, 2) + ":" + displayAbilityCooldown(1, 2),displayAbilityName(1, 3) + ":" +displayAbilityCooldown(1, 3), "Health: " + playerO.getHealth()); 
 
             System.out.println ("\n"+
                                 "\n"+
@@ -175,7 +178,7 @@ public class TicTacToeX_DefaultMap extends Map{
                                 "\n"+
                                 "\n"+
                                 "\n");
-     System.out.printf  ("%-26s%-26s%-26s%-26s%-26s\n", displayAbilityName(0, 0)+ ":" + displayAbilityCooldown(0, 0), displayAbilityName(0, 1) + ":" + displayAbilityCooldown(0, 1), displayAbilityName(0, 2) + ":" + displayAbilityCooldown(0, 2),displayAbilityName(0, 3) + ":" +displayAbilityCooldown(0, 0), "Health: " + playerX.getHealth()); 
+     System.out.printf  ("%-26s%-26s%-26s%-26s%-26s\n", displayAbilityName(0, 0)+ ":" + displayAbilityCooldown(0, 0), displayAbilityName(0, 1) + ":" + displayAbilityCooldown(0, 1), displayAbilityName(0, 2) + ":" + displayAbilityCooldown(0, 2),displayAbilityName(0, 3) + ":" +displayAbilityCooldown(0, 3), "Health: " + playerX.getHealth()); 
              System.out.println("\n"+
                                 "|------------------------------------------------------- YOU -------------------------------------------------------|\n");
             System.out.println("Enter input: ");
@@ -232,55 +235,63 @@ public class TicTacToeX_DefaultMap extends Map{
             }, 0, 1000);
         }
         public void stopTick(){
-            
-            
             this.timer.cancel();
-            this.timer.purge();
             ClearConsoleObject.clearConsole();
         }
-        public void setGameOver(Boolean hasPlayerWon){
-            stopTick();
-            ClearConsoleObject.clearConsole();
-            if (hasPlayerWon){
-                System.out.println( "|-----------------------------------------------------------------------------------------------------------------------|\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                    ENEMY FELLED                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|-----------------------------------------------------------------------------------------------------------------------|");
-            } else {
-                System.out.println( "|-----------------------------------------------------------------------------------------------------------------------|\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                      YOU DIED                                                         |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|                                                                                                                       |\n"+
-                "|-----------------------------------------------------------------------------------------------------------------------|");
+        boolean gameEnded = false;
+        public void setGameOver(Boolean hasPlayerWon, boolean quit){
+            if (!gameEnded){
+                playerController.close();
+                gameEnded = true;
+                this.stopTick();
+                aiController.close();
+                playerO.close();
+                playerX.close();
+                if (hasPlayerWon && !quit){
+                    System.out.println( "|-----------------------------------------------------------------------------------------------------------------------|\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                    ENEMY FELLED                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|-----------------------------------------------------------------------------------------------------------------------|");
+                } else if(!hasPlayerWon && !quit){
+                    System.out.println( "|-----------------------------------------------------------------------------------------------------------------------|\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                      YOU DIED                                                         |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|                                                                                                                       |\n"+
+                    "|-----------------------------------------------------------------------------------------------------------------------|");
+                }
+                
+                
+                
+                delayTime(2000);
+                ClearConsoleObject.clearConsole();
+                new TicTacToeX_GameEnder(null, null,true);
             }
-        delayTime(2000);
-        ClearConsoleObject.clearConsole();
-        new TicTacToeX_TitleScreen(null, null);
+            
     }
 
     //Overide Begin Play --------------------------------------------------------------
@@ -290,19 +301,18 @@ public class TicTacToeX_DefaultMap extends Map{
         float randomEnemyHealth = 50 + random.nextFloat() * (300 - 50);
         
         super.beginPlay();
-        playerX = new PlayerPawn(this, this, 'X', 100);
-        playerO = new PlayerPawn(this, this, 'O', randomEnemyHealth);
+        playerX = new PlayerPawn(this, this, 'X', 100, "Player");
+        playerO = new PlayerPawn(this, this, 'O', randomEnemyHealth, "AI");
         playerController = new TicTacToeXPlayerController(this, this, 'X', playerX);
         aiController = new TicTacToeXAIController(this, this, 'O', playerO);
         playerX.possess(playerController);
         playerO.possess(aiController);
         processTurn(false);
 
-
-
         resetBoard();
         tick(this.timer = new Timer());
         playerController.takeUserInput();
+        
     }
 }
     

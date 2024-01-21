@@ -6,10 +6,16 @@ import source.classes.base_classes.Actor;
 public class Ability_SteelTempest extends AbilityBase{
         public Ability_SteelTempest(Actor owner, AObject worldReference) {
         super(owner, worldReference);
-        abilityName = "Steel Tempest";
-        maxCooldown = 5;
+        this.abilityName = "Steel Tempest";
+        this.maxCooldown = 5;
+        this.cooldown = 0;
+        
     }
 
-    
+    @Override
+    public void executeAbility(){
+        super.executeAbility();
+        enemy.sendDamage((float) 8);
+    }
     
 }
