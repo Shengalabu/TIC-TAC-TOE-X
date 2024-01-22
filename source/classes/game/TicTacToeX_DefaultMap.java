@@ -298,10 +298,10 @@ public class TicTacToeX_DefaultMap extends Map{
     @Override
     public void beginPlay() {
         Random random = new Random();
-        float randomEnemyHealth = 50 + random.nextFloat() * (300 - 50);
+        float randomEnemyHealth = 150 + random.nextFloat() * (400 - 150);
         
         super.beginPlay();
-        playerX = new PlayerPawn(this, this, 'X', 100, "Player");
+        playerX = new PlayerPawn(this, this, 'X', 150, "Player");
         playerO = new PlayerPawn(this, this, 'O', randomEnemyHealth, "AI");
         playerController = new TicTacToeXPlayerController(this, this, 'X', playerX);
         aiController = new TicTacToeXAIController(this, this, 'O', playerO);
