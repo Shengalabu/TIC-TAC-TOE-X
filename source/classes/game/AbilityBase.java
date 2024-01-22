@@ -4,6 +4,7 @@ import source.classes.base_classes.AObject;
 import source.classes.base_classes.Actor;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Random;
 
 public class AbilityBase extends Actor{
     String abilityName = "None";
@@ -11,18 +12,26 @@ public class AbilityBase extends Actor{
     int cooldown = 0;
     Timer timer;
     PlayerPawn enemy;
+    PlayerPawn owningPlayerPawn;
+    TicTacToeX_DefaultMap tttx_DefaultMap;
+    Random random = new Random();
 
     public AbilityBase(Actor owner, AObject worldReference) {
         super(owner, worldReference);
+        if (worldReference instanceof TicTacToeX_DefaultMap){
+            tttx_DefaultMap = (TicTacToeX_DefaultMap) worldReference;
+        }
     }
 
     public void getEnemyRef(){
             if (((PlayerPawn) owner).name.equals("AI")){
                 enemy = ((TicTacToeX_DefaultMap) worldReference).playerX;
+                owningPlayerPawn = ((PlayerPawn) owner);
                 return;
             }
             if (((PlayerPawn) owner).name.equals("Player")){
                 enemy = ((TicTacToeX_DefaultMap) worldReference).playerO;
+                owningPlayerPawn = ((PlayerPawn) owner);
             }
     }
 

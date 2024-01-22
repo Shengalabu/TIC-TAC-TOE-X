@@ -7,6 +7,7 @@ import source.classes.base_classes.AObject;
 public class HealthComponent extends ActorComponent{
     float health;
     float maxHealth;
+    boolean invincible = false;
     
     //constructor
     public HealthComponent(Actor owner, AObject worldReference,float maxHealth) {
@@ -14,15 +15,21 @@ public class HealthComponent extends ActorComponent{
         this.health = maxHealth;
         this.maxHealth = maxHealth;
     }
-    
-    
 
     //Returns the health of the component
     public float getHealth(){
         return health;
     }
 
+    public void setInvincible(boolean invincible){
+        this.invincible = invincible;
+    }
+
     public float takeDamage(float damage){
+        if (invincible){
+            return health;
+        }
+        
         health -= damage;
         if (health <= 0){
             health = 0;

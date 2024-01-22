@@ -52,9 +52,9 @@ public class PlayerPawn extends Pawn implements MasterAttackInterface{
         @Override
         public void beginPlay(){
             abilityQ = new Ability_SteelTempest(this, worldReference);
-            abilityW = new AbilityBase(this, worldReference);
-            abilityE = new AbilityBase(this, worldReference);
-            abilityR = new AbilityBase(this, worldReference);
+            abilityW = new Ability_NullifyingOrb(this, worldReference);
+            abilityE = new Ability_VoidCorruption(this, worldReference);
+            abilityR = new Ability_VoidRupture(this, worldReference);
         }
 
         public void close(){
